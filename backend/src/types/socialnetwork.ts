@@ -1,0 +1,1 @@
+export type SocialNetwork = "youtube" | "vk" | "tiktok" | Error

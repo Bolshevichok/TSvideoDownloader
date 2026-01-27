@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
-  "type": "commonjs",
+  "type": "module",
+  "compilerOptions": {
+    "module": "commonjs",
+    "verbatimModuleSyntax": false
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
@@ -13,9 +17,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.10",
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "express": "^5.2.1",
     "youtubei.js": "^16.0.1"
   }
 }
