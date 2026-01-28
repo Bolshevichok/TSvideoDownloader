@@ -1,4 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-console.log("Hello, TypeScript!");
+import { startServer } from "./server.js";
+startServer();
 //# sourceMappingURL=index.js.map

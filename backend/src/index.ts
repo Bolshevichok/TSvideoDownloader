@@ -1,1 +1,3 @@
-console.log("Hello, TypeScript!");
+import { startServer } from "./server.js";
+
+startServer();
