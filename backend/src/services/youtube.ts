@@ -1,10 +1,17 @@
-import { Innertube } from 'youtubei.js';
 import type { ContentService } from '../types/contentservice.js';
+import ytDlp from 'yt-dlp-exec';
 export class YTcontent implements ContentService {
-    async downloadvideo(str: string): Promise<ReadableStream<Uint8Array>> {
-        const innertube = await Innertube.create();
-        const endpoint = await innertube.resolveURL(str);
-        const videoId = endpoint.payload.videoId;
-        return innertube.download(videoId);
+    async downloadvideo(url: string): Promise<any> {
+        console.log("YT-DLP START!!!: "+url)
+
+        const subprocess = (ytDlp as any).exec(url, {
+            output: "-",
+            format: "best[ext=mp4]",
+            noCheckCertificates: true,
+            noWarnings: true,
+            preferFreeFormats: true
+        });
+
+        return subprocess.stdout;
     }
 }

@@ -14,12 +14,17 @@ export function setupRoutes(app: express.Application){
             const service = new YTcontent()
             try {
                 const stream = await service.downloadvideo(url)
-                const nodeStream = Readable.fromWeb(stream as any);
-                res.setHeader("Content-type", "application/octet-stream")
+                res.setHeader("Content-type", "video/mp4")
                 res.setHeader("Content-Disposition", "attachment; filename='file.mp4'")
-                nodeStream.pipe(res);
-            } catch (error) {
-                res.status(500).send("Download failed")
+                stream.pipe(res);
+            } catch (error: any) {
+                console.error("Download failed:", error);
+                if (error?.response) {
+                    console.error("Status:", error.response.status);
+                    console.error("Headers:", error.response.headers);
+                    console.error("Body:", error.response.data ?? error.response.body ?? error.response.text);
+                }
+                res.status(500).send("Download failed: " + (error?.message ?? String(error)));
             } 
         } else {
                 res.status(400).send("Unsupported platform")
