@@ -1,3 +1,7 @@
-export interface ContentService {
-    downloadvideo(str: string): Promise<ReadableStream<Uint8Array>>;
+import type { Readable } from "node:stream";
+export interface YTService {
+    downloadVideo(str: string): Promise<Readable | null>;
+}
+export interface TTService {
+    downloadVideo(str: string): Promise<Readable | null>;
 }

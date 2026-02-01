@@ -8,6 +8,6 @@ export function socialnetworkCheck(str: string): SocialNetwork {
     } else if (str.includes("youtube")) {
         return "youtube"
     } else {
-        return Error("unsupported url")
+        return Error("unsupported social network")
     }
 }
