@@ -1,1 +1,1 @@
-export type SocialNetwork = "youtube" | "vk" | "tiktok" | Error
+export type SocialNetwork = "youtube" | "vk" | "tiktok"

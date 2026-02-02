@@ -4,6 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "type": "module",
+  "ts-node": {
+    "esm": true
+  },
   "compilerOptions": {
     "module": "commonjs",
     "verbatimModuleSyntax": false

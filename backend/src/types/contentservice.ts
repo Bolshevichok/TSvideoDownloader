@@ -4,4 +4,5 @@ export interface YTService {
 }
 export interface TTService {
     downloadVideo(str: string): Promise<Readable | null>;
+    downloadIMG(str: string): Promise<Readable[] | null>;
 }
