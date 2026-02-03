@@ -1,7 +1,9 @@
 import type { TTService } from '../types/contentservice.js';
 import { Readable } from 'node:stream';
 import ytDlp from 'yt-dlp-exec';
-import { getFullURL } from '../utils/getFullURL.js';
+import axios from 'axios';
+import { load } from "cheerio";
+import puppeteer from 'puppeteer';
 
 export class TTcontent implements TTService {
     async downloadVideo(url: string): Promise<Readable | null> {
@@ -26,8 +28,5 @@ export class TTcontent implements TTService {
             console.log("ERR TT: " + error);
             return null;
         }
-    }
-    async downloadIMG(str: string): Promise<Readable[] | null> {
-        return null;
     }
 }
