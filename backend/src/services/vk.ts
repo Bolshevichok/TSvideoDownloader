@@ -4,7 +4,7 @@ import ytDlp from "yt-dlp-exec";
 export class VKcontent implements VKService {
     async downloadVideo(url: string): Promise<Readable | null> {
         try {
-            console.log(`[YT] start download: ${url}`);
+            console.log(`[VK] start download: ${url}`);
             const subprocess = (ytDlp as any).exec(url, {
                 output: "-",
             });
