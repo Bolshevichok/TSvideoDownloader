@@ -4,6 +4,7 @@ import type { Readable } from 'node:stream';
 export class YTcontent implements YTService {
     async downloadVideo(url: string): Promise<Readable | null> {
         try {
+            console.log(`[YT] start download: ${url}`);
             const subprocess = (ytDlp as any).exec(url, {
                 output: "-",
                 
@@ -21,7 +22,7 @@ export class YTcontent implements YTService {
             return subprocess.stdout;
         } 
         catch (error) {
-            console.log(error);
+            console.log("YT: "+error);
             return null;
         }
     }
