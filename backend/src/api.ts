@@ -11,7 +11,7 @@ export function setupRoutes(app: express.Application){
             return res.status(400).send("Missing URL");
         };
 
-        res.setHeader("Content-type", "video/mp4");
+        res.setHeader("Content-type", "application/octet-stream");
         res.setHeader("Content-Disposition", "attachment; filename='file.mp4'");
         
         const platform = socialnetworkCheck(url);
@@ -35,8 +35,6 @@ export function setupRoutes(app: express.Application){
                 if(!stream){
                     return res.status(404).send("Video not found or unavaiable");
                 };
-                res.setHeader("Content-type", "application/octet-stream");
-                res.setHeader("Content-Disposition", "attachment; filename='tiktok_content'");
                 stream.pipe(res);
             } catch (error: any) {
                 console.error("Download failed:", error);
@@ -49,8 +47,6 @@ export function setupRoutes(app: express.Application){
                 if(!stream){
                     return res.status(404).send("Video not found or unavaiable");
                 };
-                res.setHeader("Content-type", "application/octet-stream");
-                res.setHeader("Content-Disposition", "attachment; filename='tiktok_content'");
                 stream.pipe(res);
             } catch (error: any) {
                 console.error("Download failed:", error);
