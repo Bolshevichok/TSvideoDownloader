@@ -8,15 +8,17 @@ services:
     - "${HOST_BACKEND}:${PORT_BACKEND}:${PORT_BACKEND}"
     env_file:
       - ./.env
+    environment:
+      - HOST_BACKEND=0.0.0.0
   tgbot:
     build: 
       context: ./tgbot
       args:
         PORT_TGBOT: ${PORT_TGBOT}
-    ports:
-    - "${HOST_TG}:${PORT_TGBOT}:${PORT_TGBOT}"
     env_file:
       - ./.env
+    environment:
+      - HOST_BACKEND=backend
 networks:
   default:
     driver: bridge
