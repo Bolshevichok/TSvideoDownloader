@@ -1,10 +1,20 @@
+import { error } from 'node:console';
 import type { TTService } from '../types/contentservice.js';
 import { Readable } from 'node:stream';
 import ytDlp from 'yt-dlp-exec';
 
 export class TTcontent implements TTService {
     async downloadVideo(url: string): Promise<Readable | null> {
-        try {
+        const filesize = await (ytDlp as any).exec(url, {
+            print: ["%(filesize)s"]
+        })
+        const filesizeStr = filesize.stdout.trim();
+        const filesizeint = parseInt(filesizeStr, 10);
+        if (filesizeint>50*1024*1024){
+            throw new Error("file too heavy") ;
+        }
+        else {
+            try {
             console.log(`[TT] start download: ${url}`);
             const subprocess = (ytDlp as any).exec(url, {
                 output: "-",
@@ -21,9 +31,10 @@ export class TTcontent implements TTService {
                 addHeader: "user-agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
             });
             return subprocess.stdout;   
-        } catch (error) {
-            console.log("ERR TT: " + error);
-            return null;
+            } catch (error) {
+                console.log("ERR TT: " + error);
+                return null;
+            }
         }
     }
 }

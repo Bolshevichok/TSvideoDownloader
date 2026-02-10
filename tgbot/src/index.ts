@@ -10,12 +10,18 @@ bot.on('message::url', async (ctx) => {
     try {
         const message = ctx.message.text;
         if (!message) return ctx.reply("ой, вей! у вас какое-то нехорошее сообщение.");
-        const video = await downloadVideo(message);
-        if (!video) return ctx.reply("ой, вей! не то ты мне шлешь. нужна только ссылка для YT/TT/VK!");
-        ctx.replyWithVideo(new InputFile(video));
+
+        const result = await downloadVideo(message); // Теперь возвращает объект
+        if (result.stream) {
+            // Отправить видео
+            await ctx.replyWithVideo(new InputFile(result.stream));
+        } else {
+            // Отправить сообщение об ошибке
+            await ctx.reply(result.error || "ой, вей! не то ты мне шлешь. нужна только ссылка для YT/TT/VK!");
+        }
     } catch (e) {
         console.error(e);
-        ctx.reply("кажется что-то не то...")
+        ctx.reply("кажется что-то не то...");
     }
 });
 
