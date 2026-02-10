@@ -1,5 +1,21 @@
 import dotenv from 'dotenv';
-dotenv.config({path: '../.env'});
+import { existsSync } from 'node:fs';
+const envPaths = ['../.env', './.env']
+let envPath: string | undefined;
+for (const path of envPaths){
+  if (existsSync(path)){
+    envPath = path;
+    break;
+  }
+}
+if (envPath){
+  dotenv.config({path: envPath});
+} else {
+  dotenv.config();
+}
+
+// dotenv.config({path: "../.env"})
+
 
 interface Config {
   port_tg: number;

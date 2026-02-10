@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: 
+      context: ./backend
+      args:
+        PORT_BACKEND: ${PORT_BACKEND}
+    ports:
+    - "${HOST_BACKEND}:${PORT_BACKEND}:${PORT_BACKEND}"
+    env_file:
+      - ./.env
+  tgbot:
+    build: 
+      context: ./tgbot
+      args:
+        PORT_TGBOT: ${PORT_TGBOT}
+    ports:
+    - "${HOST_TG}:${PORT_TGBOT}:${PORT_TGBOT}"
+    env_file:
+      - ./.env
+networks:
+  default:
+    driver: bridge
+volumes:
+  app_data:
+    driver: local  
